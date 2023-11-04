@@ -9,32 +9,31 @@ export default function Root() {
     const [markdownList, setMarkdownList] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const onItemSelected = useCallback((data) => {
+    const onItemSelected = (data) => {
         data.selected = true;
         setSelectedItem(data);
-      
-        if (markdownList && markdownList.length) {
-          const updatedData = [...markdownList].map((item) => {
-            item.selected = item._id === data._id;
-            return item;
-          });
-          setMarkdownList(updatedData);
+
+        if(markdownList && markdownList.length) {
+            const updatedData = [...markdownList].map(item => {                
+                item.selected =  item._id === data._id;
+                return item;
+            });
+            setMarkdownList(updatedData);
         }
-      }, []);
-      
+    };
+
     const onAddNew = () => {
         setSelectedItem({ content: ''});
     };
 
-    const getAllMarkdowns = useCallback(() => {
+    const getAllMarkdowns = () => {
         listMarkdowns((data) => {            
             setMarkdownList(data); 
             if(data && data.length) {
                 onItemSelected(data[0]);
             }
         });
-    },[]);
-
+    };
     const onSave = () => {
         if(selectedItem._id) {
            
@@ -49,6 +48,7 @@ export default function Root() {
             })
         }
     };
+
 
     const onDelete = () => {
         deleteMarkdown(selectedItem._id, () => {
