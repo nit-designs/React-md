@@ -20,7 +20,7 @@ export default function Root() {
           });
           setMarkdownList(updatedData);
         }
-      }, [markdownList,setSelectedItem, setMarkdownList]);
+      }, []);
       
     const onAddNew = () => {
         setSelectedItem({ content: ''});
