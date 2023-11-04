@@ -9,19 +9,19 @@ export default function Root() {
     const [markdownList, setMarkdownList] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const onItemSelected = (data) => {
+    const onItemSelected = useCallback((data) => {
         data.selected = true;
         setSelectedItem(data);
-
-        if(markdownList && markdownList.length) {
-            const updatedData = [...markdownList].map(item => {                
-                item.selected =  item._id === data._id;
-                return item;
-            });
-            setMarkdownList(updatedData);
+      
+        if (markdownList && markdownList.length) {
+          const updatedData = [...markdownList].map((item) => {
+            item.selected = item._id === data._id;
+            return item;
+          });
+          setMarkdownList(updatedData);
         }
-    };
-
+      }, [setSelectedItem, setMarkdownList]);
+      
     const onAddNew = () => {
         setSelectedItem({ content: ''});
     };
@@ -58,7 +58,7 @@ export default function Root() {
 
     useEffect(() => {
         getAllMarkdowns();
-    }, []);    
+    }, [getAllMarkdowns]);    
 
     
     return (        
