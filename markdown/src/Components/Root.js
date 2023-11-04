@@ -2,7 +2,7 @@ import Header from './Header';
 import MarkdownList from './MarkdownList';
 import MarkdownEditor from './MarkdownEditor';
 import { listMarkdowns, createMarkdown, updateMarkdown, deleteMarkdown } from '../Services/MarkdownService';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 export default function Root() {
@@ -26,14 +26,14 @@ export default function Root() {
         setSelectedItem({ content: ''});
     };
 
-    const getAllMarkdowns = () => {
+    const getAllMarkdowns = useCallback(() => {
         listMarkdowns((data) => {            
             setMarkdownList(data); 
             if(data && data.length) {
                 onItemSelected(data[0]);
             }
         });
-    };
+    },[]);
 
     const onSave = () => {
         if(selectedItem._id) {
@@ -58,7 +58,7 @@ export default function Root() {
 
     useEffect(() => {
         getAllMarkdowns();
-    }, [getAllMarkdowns]);    
+    }, []);    
 
     
     return (        
