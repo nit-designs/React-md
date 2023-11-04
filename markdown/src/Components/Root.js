@@ -58,7 +58,7 @@ export default function Root() {
 
     useEffect(() => {
         getAllMarkdowns();
-    }, []);    
+    }, [getAllMarkdowns]);    
 
     
     return (        
